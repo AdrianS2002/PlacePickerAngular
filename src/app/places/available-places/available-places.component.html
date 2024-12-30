@@ -1,0 +1,15 @@
+<app-places-container title="Available Places">
+@if(isFetching()&& !erorr()){
+  <p class="fallback-text">Fetching available places...</p>
+}
+
+@if(erorr()){ 
+  <p class="fallback-text">An error occurred while fetching available places. Please try again later.</p>
+}
+
+  @if (places()) {
+  <app-places [places]="places()!" (selectPlace)="onSelectPlace($event)" />
+  } @else if (places()?.length === 0) {
+  <p class="fallback-text">Unfortunately, no places could be found.</p>
+  }
+</app-places-container>
