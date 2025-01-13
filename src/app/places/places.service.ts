@@ -17,14 +17,14 @@ export class PlacesService {
 
   loadAvailablePlaces() {
     return this.fetchPlaces(
-      'http://localhost:3000/places',
+      'https://place-picker-angular.vercel.app/places',
       'something went wrong the available places'
     );
   }
 
   loadUserPlaces() {
     return this.fetchPlaces(
-      'http://localhost:3000/user-places',
+      'https://place-picker-angular.vercel.app/user-places',
       'something went wrong the favourite places'
     ).pipe(tap({
       next: (userPlaces) => {
@@ -40,7 +40,7 @@ export class PlacesService {
       this.userPlaces.set([...prevPlaces, place]);
     }
 
-    return this.httpClient.put('http://localhost:3000/user-places', { placeId: place.id }).pipe(
+    return this.httpClient.put('https://place-picker-angular.vercel.app/user-places', { placeId: place.id }).pipe(
       catchError((error) => {
         this.userPlaces.set(prevPlaces);
         this.errorService.showError('Failed to add place to user places');
@@ -54,7 +54,7 @@ export class PlacesService {
     if (prevPlaces.some((p) => p.id === place.id)) {
       this.userPlaces.set(prevPlaces.filter(p => p.id !== place.id));
     }
-    return this.httpClient.delete('http://localhost:3000/user-places/'+place.id).pipe(
+    return this.httpClient.delete('https://place-picker-angular.vercel.app/user-places/'+place.id).pipe(
       catchError((error) => {
         this.userPlaces.set(prevPlaces);
         this.errorService.showError('Failed to remove place from user places');
